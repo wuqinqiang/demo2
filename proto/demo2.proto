@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "/proto";
+
+import "validate/validate.proto";
+import "google/protobuf/empty.proto";
+
+
+message Request {
+  string ping = 1;
+}
+
+message Response {
+  string pong = 1;
+  int64 room_id = 2 [(validate.rules).int64 = {gte:1}];
+}
+message EmptyReq {
+}
+
+message EmptyResp {
+
+}
+
+
+service Demo2 {
+  rpc Ping(Request) returns (Response);
+  rpc GetEmpty(EmptyReq) returns (EmptyResp);
+}
